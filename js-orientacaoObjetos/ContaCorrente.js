@@ -1,8 +1,17 @@
 import { Cliente } from "./Cliente.js";
 
 export class ContaCorrente {
+
+   static numeroDeContas = 0;
     agencia;
     _cliente; //privado
+    #saldo = 0; //privado
+
+    constructor(cliente, agencia){
+        this.agencia = agencia
+        this._cliente = cliente
+        ContaCorrente.numeroDeContas += 1;
+    }
 
     set cliente(novoValor) {
 
@@ -15,7 +24,7 @@ export class ContaCorrente {
         return this._cliente
     }
 
-    #saldo = 0; //privado
+
     sacar(valor) {
         if (this.#saldo >= valor) {
             this.#saldo -= valor;
