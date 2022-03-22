@@ -1,10 +1,12 @@
 export class Cliente {
-    nome;
-    _cpf;
 
-    constructor(nome, cpf){
+//propriedades de instancias
+//devem ser definidas dentro dos 
+//metodos da classe
+
+    constructor(nome, cpf) {
         this.nome = nome
-this._cpf = cpf
+        this._cpf = cpf
     }
 
     get cpf() {
