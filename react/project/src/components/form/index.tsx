@@ -1,17 +1,41 @@
 import React from "react";
+import { ITask } from '../../types/task';
 import Button from "../button";
 import style from './Form.module.scss'
+import {v4 as uuidv4 }from 'uuid'
 
-class Form extends React.Component {
+class Form extends React.Component<{
+    setTasks: React.Dispatch<React.SetStateAction<ITask[]>>
+}> {
     state = {
         task: "",
-        time: "00:00:00"
+        time: "01:00:00"
     }
 
-    addTask(event:React.FormEvent<HTMLFormElement>) {
-//to prevent refresh in the page
+    addTask(event: React.FormEvent<HTMLFormElement>) {
+        //to prevent refresh in the page
         event.preventDefault();
-        console.log('state:', this.state);
+        this.props.setTasks(oldTasks =>
+
+            [
+                ...oldTasks,
+                {
+
+                    ...this.state,
+                    selected:false,
+                    completed:false,
+                    id:uuidv4()
+
+                }
+
+
+            ]);
+
+        this.setState({
+            task: "",
+            time: "01:00:00"
+        })
+
     }
     render() {
 
@@ -42,6 +66,7 @@ class Form extends React.Component {
                         type="time"
                         step="1"
                         name="time"
+
                         //default value 
                         value={this.state.time}
                         onChange={event => this.setState({ ...this.state, time: event.target.value })}
@@ -52,7 +77,7 @@ class Form extends React.Component {
                     />
                 </div>
 
-                <Button>
+                <Button type="submit">
                     Adicionar
                 </Button>
             </form>
