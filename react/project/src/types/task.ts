@@ -5,3 +5,8 @@ export interface ITask{
     completed:boolean,
     id:string
 }
+
+export interface Props{
+    tasks:ITask[],
+    selectTask:(selectedTask: ITask)=>void
+} 
