@@ -1,47 +1,37 @@
 <template>
-
   <div class="is-flex is-align-items-center is-justify-content-space-evenly">
-
     <Cronometro :tempoEmSegundos="tempoEmSegundos" />
 
-    <button class="button" @click="iniciar" :disabled="cronometroRodando">
-      <span class="icon">
-        <i class="fas fa-play"></i>
-      </span>
-      <span>play</span>
-    </button>
-
-    <button class="button" @click="finalizar" :disabled="!cronometroRodando">
-      <span class="icon">
-        <i class="fas fa-stop"></i>
-      </span>
-      <span>stop</span>
-    </button>
+    <Botao @AoBotaoClicado="iniciar" :desabilitado="cronometroRodando" :texto="play" :iconeClasse=classeIcone1 />
+    <Botao @AoBotaoClicado="finalizar" :desabilitado="!cronometroRodando" :texto="stop" :iconeClasse=classeIcone2 />
 
   </div>
-
 </template>
 
 <script lang="ts">
-
 import { defineComponent } from "vue";
 import Cronometro from "./MeuCronometro.vue";
+import Botao from "./MeuBotao.vue";
 
 export default defineComponent({
   name: "MeuTemporizador",
-  emits:['aoTemporizadorFinalizado'], //emite um evento
-  components: { Cronometro },
+  emits: ["aoTemporizadorFinalizado"], //emite um evento
+  components: { Cronometro, Botao },
 
   data() {
     return {
       tempoEmSegundos: 0,
       cronometro: 0,
+      classeIcone1:'fas fa-play',
+      clssseIcone2:'fas fa-stop',
       cronometroRodando: false,
+      play:'play',
+      stop:'stop'
     };
   },
 
   methods: {
-    iniciar() {
+    iniciar():void {
       //começar a contagem
       //1 seg = 1000 ms
       this.cronometro = setInterval(() => {
@@ -52,20 +42,17 @@ export default defineComponent({
       (this.cronometroRodando = true), console.log("iniciando");
     },
 
-    finalizar() {
-
+    finalizar():void{
       console.log("finalizando");
       this.cronometroRodando = false;
       clearInterval(this.cronometro);
       //emit evento,
-      this.$emit('aoTemporizadorFinalizado',this.tempoEmSegundos); //nome e payload para emitir
+      this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos); //nome e payload para emitir
       //reset
-      this.tempoEmSegundos = 0
-
-    },
+      this.tempoEmSegundos = 0;
+    }
   },
 });
-
 </script>
 
 <style scoped>
