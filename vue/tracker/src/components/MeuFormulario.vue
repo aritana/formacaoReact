@@ -10,30 +10,15 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
+         
+          v-model="descricao"
         />
       </div>
+       <!-- Vmodel: linkar com o estado, a descricao da tarefa -->
+
       <div class="column">
-        <div
-          class="is-flex is-align-items-center is-justify-content-space-between"
-        >
-          <section>
-            <strong>
-              {{ tempoDecorrido }}
-            </strong>
-          </section>
-          <button class="button" @click="iniciar">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span>play</span>
-          </button>
-          <button class="button" @click="finalizar">
-            <span class="icon">
-              <i class="fas fa-stop"></i>
-            </span>
-            <span>stop</span>
-          </button>
-        </div>
+        <!-- recebe o valor emitido  -->
+        <temporizador @aoTemporizadorFinalizado="finalizarTarefa" />
       </div>
     </div>
   </div>
@@ -41,31 +26,29 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Temporizador from "./MeuTemporizador.vue";
 
 export default defineComponent({
+
   name: "MeuFormulario",
-  data () {
-    return {
-      tempoEmSegundos: 0,
-      cronometro: 0
-    }
+  components: {
+    Temporizador,
   },
-  computed: {
-    tempoDecorrido () : string {
-      return new Date(this.tempoEmSegundos * 1000).toISOString().substr(11,8)
-    }
-  },
+
+  data(){
+      return{
+        descricao:'' //linkado com o v-model que o usuario digitou
+      }
+  },//estados
+
   methods: {
-    iniciar () {
-      // começar a contagem
-      // 1 seg = 1000 ms
-      this.cronometro = setInterval(() => {
-        this.tempoEmSegundos += 1        
-      }, 1000)
-    },
-    finalizar () {
-      clearInterval(this.cronometro)
+    finalizarTarefa(tempoDecorrido:number):void{
+        console.log('tempo da tarefa', tempoDecorrido)
+        console.log('descricao', this.descricao)
+
+        this.descricao =''
     }
-  }
+  },
+
 });
 </script>
