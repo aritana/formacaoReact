@@ -27,7 +27,7 @@ export default defineComponent({
     },
     iconeClasse: {
       type: String,
-      default: "fas fa-play",
+      default: "fas fa-stop",
     },
   },
   methods: {

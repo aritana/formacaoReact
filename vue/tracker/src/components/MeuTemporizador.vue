@@ -23,7 +23,7 @@ export default defineComponent({
       tempoEmSegundos: 0,
       cronometro: 0,
       classeIcone1:'fas fa-play',
-      clssseIcone2:'fas fa-stop',
+      classeIcone2:'fas fa-stop',
       cronometroRodando: false,
       play:'play',
       stop:'stop'

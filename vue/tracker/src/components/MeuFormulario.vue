@@ -10,11 +10,10 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
-         
           v-model="descricao"
         />
       </div>
-       <!-- Vmodel: linkar com o estado, a descricao da tarefa -->
+      <!-- Vmodel: linkar com o estado, a descricao da tarefa -->
 
       <div class="column">
         <!-- recebe o valor emitido  -->
@@ -29,26 +28,27 @@ import { defineComponent } from "vue";
 import Temporizador from "./MeuTemporizador.vue";
 
 export default defineComponent({
-
   name: "MeuFormulario",
+  emits: ["aoSalvarTarefa"],
   components: {
     Temporizador,
   },
 
-  data(){
-      return{
-        descricao:'' //linkado com o v-model que o usuario digitou
-      }
-  },//estados
+  data() {
+    return {
+      descricao: "", //linkado com o v-model que o usuario digitou
+    };
+  }, //estados
 
   methods: {
-    finalizarTarefa(tempoDecorrido:number):void{
-        console.log('tempo da tarefa', tempoDecorrido)
-        console.log('descricao', this.descricao)
+    finalizarTarefa(tempoDecorrido: number): void {
+      this.$emit("aoSalvarTarefa", {
+        duracaoEmSegudos: tempoDecorrido,
+        descricao: this.descricao,
+      });
 
-        this.descricao =''
-    }
+      this.descricao = "";
+    },
   },
-
 });
 </script>
