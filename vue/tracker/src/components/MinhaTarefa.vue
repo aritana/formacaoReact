@@ -1,17 +1,18 @@
 <template>
 
-  <div class="box has-text-weight-bold">
+  <meu-box> 
 
     <div class="columns">
 
       <div class="column is-7">{{tarefa.descricao || 'Tarefa sem descrição'}}</div>
-
       <div class="column">
         <meu-cronometro :tempoEmSegundos="tarefa.duracaoEmSegudos" />
       </div>
 
     </div>
-  </div>
+
+  </meu-box>
+
 </template>
 
 
@@ -19,12 +20,13 @@
 //PropType para o Object
 import ITarefa from '@/interfaces/ITarefa';
 import { defineComponent,PropType} from "vue";
+import MeuBox from './MeuBox.vue';
 import MeuCronometro from "./MeuCronometro.vue";
 
 
 
 export default defineComponent({
-  components: { MeuCronometro },
+  components: { MeuCronometro, MeuBox },
   name: "MinhaTarefa",
   props:{
       tarefa:{
@@ -36,7 +38,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.box {
-  background: #faf0ca;
-}
+
 </style>
