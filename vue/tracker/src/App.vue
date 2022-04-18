@@ -1,10 +1,10 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{'modo-escuro' : modoEscuroAtivo}">
     <div class="column is-1">
-      <barra-lateral />
+      <barra-lateral @aoTemaAlterado="trocarTema" />
     </div>
 
-    <div class="column is-11">
+    <div class="column is-11 conteudo">
       <formulario @aoSalvarTarefa="salvarTarefa" />
 
       <div class="lista">
@@ -14,9 +14,10 @@
           :tarefa="tarefa"
         />
 
-        <meu-box v-if="listaEstaVazia"> Você está muito produtivo hoje? :) </meu-box>
+        <meu-box v-if="listaEstaVazia">
+          Você está muito produtivo hoje? :)
+        </meu-box>
       </div>
-
     </div>
   </main>
 </template>
@@ -35,23 +36,40 @@ export default defineComponent({
   data() {
     return {
       tarefas: [] as ITarefa[],
+      modoEscuroAtivo:false
     };
   },
   methods: {
     salvarTarefa(tarefa: ITarefa) {
       this.tarefas.push(tarefa);
     },
-  },
-  computed:{
-    listaEstaVazia():boolean{
-      return this.tarefas.length === 0;
+    trocarTema(modoEscuroAtivo:boolean){
+      this.modoEscuroAtivo = modoEscuroAtivo
     }
-  }
+  },
+  computed: {
+    listaEstaVazia(): boolean {
+      return this.tarefas.length === 0;
+    },
+  },
 });
 </script>
 
 <style>
 .lista {
   padding: 1.25rem;
+}
+
+main {
+  --bg-primario: #fff;
+  --texto-primario: #000;
+}
+
+main.modo-escuro {
+  --bg-primario: #2b2d42;
+  --texto-primario: #ddd;
+}
+.conteudo{
+  background-color: var(--bg-primario);
 }
 </style>
